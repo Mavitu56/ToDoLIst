@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "110609794953",
+    "project_id": "todolist-277e8",
+    "storage_bucket": "todolist-277e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110609794953:android:5146b64b7d3ca9a9f10358",
+        "android_client_info": {
+          "package_name": "br.com.TaskApp.task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuNp9epssdA65bn2e3cWouh8XGLjFcu8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
