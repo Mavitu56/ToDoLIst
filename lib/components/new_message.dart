@@ -33,33 +33,48 @@ class _NewTaskState extends State<NewTask> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
-          controller: _titleController,
-          onChanged: (title) => setState(() => _title = title),
-          decoration: const InputDecoration(
-            labelText: 'Título da Tarefa',
+        Container(
+          width: 350, // Largura do input
+          child: TextField(
+            controller: _titleController,
+            onChanged: (title) => setState(() => _title = title),
+            decoration: const InputDecoration(
+              labelText: 'Título da Tarefa',
+            ),
           ),
         ),
-        TextField(
-          controller: _descriptionController,
-          onChanged: (description) => setState(() => _description = description),
-          decoration: const InputDecoration(
-            labelText: 'Descrição da Tarefa',
+        Container(
+          width: 350, // Largura do botão da data
+          child: TextField(
+            controller: _descriptionController,
+            onChanged: (description) => setState(() => _description = description),
+             decoration: const InputDecoration(
+              labelText: 'Descrição da Tarefa',
+            ),
           ),
         ),
-        ElevatedButton(
-          onPressed: () => _selectDueDate(context),
-          child: const Text('Selecionar Data de Conclusão'),
+        const SizedBox(height: 16), // Espaço entre os elementos
+        Container(
+          width: 150, // Largura do botão da data
+          child: ElevatedButton(
+            onPressed: () => _selectDueDate(context),
+            child: const Text('Selecionar Data'),
+          ),
         ),
-        Text(
-          _dueDate != null
-              ? 'Data de Conclusão: ${_dueDate!.toLocal()}'
-              : 'Nenhuma data de conclusão selecionada',
+        const SizedBox(height: 16), // Espaço entre os elementos
+        Container(
+          width: 60, // Largura do botão de adicionar
+          child: ElevatedButton(
+            onPressed: _title.trim().isEmpty ? null : _addTask,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.add),
+              ],
+            ),
+          ),
         ),
-        IconButton(
-          icon: const Icon(Icons.add),
-          onPressed: _title.trim().isEmpty ? null : _addTask,
-        ),
+                SizedBox(height: 16), // Espaço entre os elementos
       ],
     );
   }

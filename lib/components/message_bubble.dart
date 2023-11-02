@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:chat/core/models/chat_message.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class TaskTile extends StatelessWidget {
+class TaskTile extends StatefulWidget {
   final Task task;
   final bool belongsToCurrentUser;
 
@@ -14,21 +13,64 @@ class TaskTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _TaskTileState createState() => _TaskTileState();
+}
+
+class _TaskTileState extends State<TaskTile> {
+  bool isCompleted = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Card( // Usar um Card para criar o retângulo.
+    final formattedDate = widget.task.dueDate != null
+        ? DateFormat('dd/MM/yyyy').format(widget.task.dueDate!)
+        : 'N/A';
+
+    return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: ExpansionTile( // Usar ExpansionTile para expandir/contrair informações.
-        title: Text(task.title), // Exibir o título da tarefa.
-
-        children: <Widget>[
+      child: ExpansionTile(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.task.title,
+              style: TextStyle(
+                decoration: isCompleted ? TextDecoration.lineThrough : null,
+                color: isCompleted ? Colors.grey : Colors.black,
+              ),
+            ),
+            Row(
+              children: [
+                Text(
+                  'Data: $formattedDate',
+                  style: TextStyle(fontSize: 12),
+                ),
+                SizedBox(width: 8),
+                Checkbox(
+                  value: isCompleted,
+                  onChanged: (value) {
+                    setState(() {
+                      isCompleted = value!;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+        children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Data: ${task.dueDate.toString()}'), // Exibir informações adicionais, como data.
-                Text('Descrição: ${task.description}'), // Exibir descrição da tarefa.
+              children: [
+                Text(
+                  'Descrição: ${widget.task.description}',
+                  style: TextStyle(
+                    decoration: isCompleted ? TextDecoration.lineThrough : null,
+                    color: isCompleted ? Colors.grey : Colors.black,
+                  ),
+                ),
               ],
             ),
           ),
