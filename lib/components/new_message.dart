@@ -67,7 +67,7 @@ class _NewTaskState extends State<NewTask> {
         ),
         const SizedBox(height: 16), // Espaço entre os elementos
         Container(
-          width: 150, // Largur a do botão da data
+          width: 150, // Largura do botão da data
           decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(10), // Isso fará com que as bordas fiquem arredondadas.
     gradient: LinearGradient(

@@ -8,7 +8,7 @@ class Task {
 
   final String userId;
   final String userName;
-  final String userImageUrl;
+  String userImageUrl;
 
    Task({
     required this.id,
