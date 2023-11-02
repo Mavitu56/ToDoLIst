@@ -19,7 +19,7 @@ class TaskTile extends StatelessWidget {
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: ExpansionTile( // Usar ExpansionTile para expandir/contrair informações.
-        title: Text(task.description), // Exibir o título da tarefa.
+        title: Text(task.title), // Exibir o título da tarefa.
 
         children: <Widget>[
           Padding(
@@ -27,7 +27,7 @@ class TaskTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Data: ${task.createdAt.toString()}'), // Exibir informações adicionais, como data.
+                Text('Data: ${task.dueDate.toString()}'), // Exibir informações adicionais, como data.
                 Text('Descrição: ${task.description}'), // Exibir descrição da tarefa.
               ],
             ),

@@ -18,13 +18,14 @@ class TaskMockService implements TaskService {
   }
 
   @override
-  Future<Task> save(String description, ChatUser user) async {
-    final newTask = Task(
+  Future<Task> save(String title, String description, DateTime? dueDate, ChatUser user) async {
+  final newTask = Task(
       id: Random().nextDouble().toString(),
       userName: user.name,
+      title: title,
       userImageUrl: user.imageUrl,
       description: description,
-      createdAt: DateTime.now(),
+      dueDate: dueDate,
       userId: user.id,
       isCompleted: false, // Defina a tarefa como não concluída por padrão.
     );

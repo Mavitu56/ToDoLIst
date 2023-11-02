@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:chat/core/services/chat/chat_service.dart'; // Importe o serviço de tarefas.
 import 'package:chat/core/services/auth/auth_service.dart';
+
 class NewTask extends StatefulWidget {
   const NewTask({Key? key});
 
@@ -9,41 +10,72 @@ class NewTask extends StatefulWidget {
 }
 
 class _NewTaskState extends State<NewTask> {
+  String _title = '';
   String _description = '';
+  DateTime? _dueDate;
+  final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
 
   Future<void> _addTask() async {
     final user = AuthService().currentUser;
 
     if (user != null) {
-      await TaskService().save(_description, user); // Use o serviço de tarefas para salvar a nova tarefa.
+      await TaskService().save(_title, _description, _dueDate, user); // Use o serviço de tarefas para salvar a nova tarefa.
+      _titleController.clear();
       _descriptionController.clear();
+      setState(() {
+        _dueDate = null;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: TextField(
-            controller: _descriptionController,
-            onChanged: (description) => setState(() => _description = description),
-            decoration: const InputDecoration(
-              labelText: 'Adicionar Tarefa...',
-            ),
-            onSubmitted: (_) {
-              if (_description.trim().isNotEmpty) {
-                _addTask();
-              }
-            },
+        TextField(
+          controller: _titleController,
+          onChanged: (title) => setState(() => _title = title),
+          decoration: const InputDecoration(
+            labelText: 'Título da Tarefa',
           ),
+        ),
+        TextField(
+          controller: _descriptionController,
+          onChanged: (description) => setState(() => _description = description),
+          decoration: const InputDecoration(
+            labelText: 'Descrição da Tarefa',
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () => _selectDueDate(context),
+          child: const Text('Selecionar Data de Conclusão'),
+        ),
+        Text(
+          _dueDate != null
+              ? 'Data de Conclusão: ${_dueDate!.toLocal()}'
+              : 'Nenhuma data de conclusão selecionada',
         ),
         IconButton(
           icon: const Icon(Icons.add),
-          onPressed: _description.trim().isEmpty ? null : _addTask,
+          onPressed: _title.trim().isEmpty ? null : _addTask,
         ),
       ],
     );
+  }
+
+  Future<void> _selectDueDate(BuildContext context) async {
+    final pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        _dueDate = pickedDate;
+      });
+    }
   }
 }
