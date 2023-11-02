@@ -29,9 +29,20 @@ class _TaskTileState extends State<TaskTile> {
         : 'N/A';
 
     return Card(
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: ExpansionTile(
+      shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(15), // Isso fará com que as bordas fiquem arredondadas.
+  ),
+  color: Colors.transparent,
+  child: Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(15),
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Colors.purple[800]!, Colors.purple[900]!],
+      ),
+    ),
+    child: ExpansionTile(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -39,7 +50,7 @@ class _TaskTileState extends State<TaskTile> {
               widget.task.title,
               style: TextStyle(
                 decoration: isCompleted ? TextDecoration.lineThrough : null,
-                color: isCompleted ? Colors.grey : Colors.black,
+                color: isCompleted ? Colors.grey : Colors.white,
               ),
             ),
             Row(
@@ -49,14 +60,17 @@ class _TaskTileState extends State<TaskTile> {
                   style: TextStyle(fontSize: 12),
                 ),
                 SizedBox(width: 8),
-                Checkbox(
-                  value: isCompleted,
-                  onChanged: (value) {
-                    setState(() {
-                      isCompleted = value!;
-                    });
-                  },
-                ),
+                Container(
+  color: Colors.transparent, // Defina a cor desejada como fundo do Container
+  child: Checkbox(
+    value: isCompleted,
+    onChanged: (value) {
+      setState(() {
+        isCompleted = value!;
+      });
+    },
+  ),
+)
               ],
             ),
           ],
@@ -71,7 +85,7 @@ class _TaskTileState extends State<TaskTile> {
                   'Descrição: ${widget.task.description}',
                   style: TextStyle(
                     decoration: isCompleted ? TextDecoration.lineThrough : null,
-                    color: isCompleted ? Colors.grey : Colors.black,
+                    color: isCompleted ? Colors.grey : Colors.white,
                   ),
                 ),
                 Row(
@@ -82,7 +96,7 @@ class _TaskTileState extends State<TaskTile> {
                         widget.taskManager.delete(widget.task.id);
                         setState(() {}); // Adicione esta linha
                       },
-                      icon: Icon(Icons.delete), // Ícone de exclusão
+                      icon: Icon(Icons.delete, color: Colors.white,), // Ícone de exclusão
                     ),
                     SizedBox(width: 8),
                     IconButton(
@@ -90,7 +104,7 @@ class _TaskTileState extends State<TaskTile> {
                         _editTask(context);
                         setState(() {}); // Adicione esta linha
                       },
-                      icon: Icon(Icons.edit), // Ícone de edição
+                      icon: Icon(Icons.edit, color: Colors.white,), // Ícone de edição
                     ),
 
                   ],
@@ -100,6 +114,7 @@ class _TaskTileState extends State<TaskTile> {
         ),
         ],
       ),
+  ),
     );
   }
 

@@ -40,6 +40,12 @@ class _NewTaskState extends State<NewTask> {
             onChanged: (title) => setState(() => _title = title),
             decoration: const InputDecoration(
               labelText: 'Título da Tarefa',
+              labelStyle: TextStyle(
+      color: Colors.white, // Isso fará com que a cor do rótulo seja branca.
+    ),
+    enabledBorder: UnderlineInputBorder(      
+      borderSide: BorderSide(color: Colors.white), // Isso fará com que a cor da linha seja branca quando o campo estiver habilitado.
+    ), 
             ),
           ),
         ),
@@ -50,13 +56,32 @@ class _NewTaskState extends State<NewTask> {
             onChanged: (description) => setState(() => _description = description),
              decoration: const InputDecoration(
               labelText: 'Descrição da Tarefa',
+              labelStyle: TextStyle(
+      color: Colors.white, // Isso fará com que a cor do rótulo seja branca.
+    ),
+    enabledBorder: UnderlineInputBorder(      
+      borderSide: BorderSide(color: Colors.white), // Isso fará com que a cor da linha seja branca quando o campo estiver habilitado.
+    ), 
             ),
           ),
         ),
         const SizedBox(height: 16), // Espaço entre os elementos
         Container(
-          width: 150, // Largura do botão da data
-          child: ElevatedButton(
+          width: 150, // Largur a do botão da data
+          decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(10), // Isso fará com que as bordas fiquem arredondadas.
+    gradient: LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [Colors.purple[800]!, Colors.purple[900]!],
+    ),
+  ),
+  child: ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      primary: Colors.transparent,
+      onPrimary: Colors.white,
+      shadowColor: Colors.transparent,
+    ),
             onPressed: () => _selectDueDate(context),
             child: const Text('Selecionar Data'),
           ),
@@ -64,7 +89,20 @@ class _NewTaskState extends State<NewTask> {
         const SizedBox(height: 16), // Espaço entre os elementos
         Container(
           width: 60, // Largura do botão de adicionar
-          child: ElevatedButton(
+          decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(10), // Isso fará com que as bordas fiquem arredondadas.
+    gradient: LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [Colors.purple[800]!, Colors.purple[900]!],
+    ),
+  ),
+  child: ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      primary: Colors.transparent,
+      onPrimary: Colors.white,
+      shadowColor: Colors.transparent,
+    ),
             onPressed: _title.trim().isEmpty ? null : _addTask,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

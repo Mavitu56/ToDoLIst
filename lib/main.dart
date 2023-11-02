@@ -21,7 +21,16 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.purple, // Defina a cor primária como transparente
+          scaffoldBackgroundColor: Color(0xFF121212), // Defina o fundo como um tom escuro (quase preto)
+          primaryColor: Colors.transparent,
+          textTheme: Theme.of(context).textTheme.apply(
+            bodyColor: Colors.white, // Isso fará com que a cor do texto seja branca.
+            displayColor: Colors.white, // Isso fará com que a cor do texto seja branca.
+          ), // Defina a cor primária como transparente
+          appBarTheme: AppBarTheme(
+            color: Colors.transparent, // Defina a cor da barra de aplicativos como transparente
+          ),
         ),
         home: const AuthOrAppPage(),
         debugShowCheckedModeBanner: false,

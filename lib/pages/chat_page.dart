@@ -14,6 +14,15 @@ class TaskPage extends StatelessWidget { // Renomeie a classe para TaskPage.
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Colors.purple[800]!, Colors.purple[900]!],
+      ),
+    ),
+  ),
         title: const Text('Task App'),
         actions: [
           DropdownButtonHideUnderline(
