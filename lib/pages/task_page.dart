@@ -1,6 +1,6 @@
 // import 'dart:math';
-import 'package:chat/components/messages.dart';
-import 'package:chat/components/new_message.dart';
+import 'package:chat/components/task_list.dart';
+import 'package:chat/components/new_task.dart';
 // import 'package:chat/core/models/chat_notification.dart';
 import 'package:chat/core/services/auth/auth_service.dart';
 import 'package:chat/core/services/notification/chat_notification_service.dart';
@@ -87,8 +87,8 @@ class TaskPage extends StatelessWidget { // Renomeie a classe para TaskPage.
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(child: TaskList()), // Substitua o componente Messages por TaskList.
-            NewTask(), // Substitua o componente NewMessage por NewTask.
+            Expanded(child: TaskList()), 
+            NewTask(),
           ],
         ),
       ),

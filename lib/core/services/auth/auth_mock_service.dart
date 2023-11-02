@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'dart:async';
 import 'dart:math';
-import 'package:chat/core/models/chat_user.dart';
+import 'package:chat/core/models/task_user.dart';
 import 'package:chat/core/services/auth/auth_service.dart';
 
-class AuthMockService implements AuthService {
+class AuthFirebaseService implements AuthService {
   static const _defaultUser = ChatUser(
     id: '456',
     name: 'Ana',

@@ -1,7 +1,7 @@
-import 'package:chat/components/message_bubble.dart';
-import 'package:chat/core/models/chat_message.dart';
+import 'package:chat/components/Task_tile.dart';
+import 'package:chat/core/models/task.dart';
 import 'package:chat/core/services/auth/auth_service.dart';
-import 'package:chat/core/services/chat/chat_service.dart';
+import 'package:chat/core/services/chat/task_service.dart';
 import 'package:flutter/material.dart';
 
 class TaskList extends StatelessWidget {
@@ -20,7 +20,8 @@ class TaskList extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('Sem Tarefas Hoje!'));
+          return const Center(child: Text('Sem Tarefas Hoje!',  style: TextStyle(color: Colors.white),
+));
         } else {
           final tasks = snapshot.data!;
 

@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:chat/core/models/chat_message.dart';
-import 'package:chat/core/services/chat/chat_service.dart';
+import 'package:chat/core/models/task.dart';
+import 'package:chat/core/services/chat/task_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:chat/pages/TaskEditScreen.dart';

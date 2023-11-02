@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart'; // Para construir a interface do usuário.
-import 'package:chat/core/models/chat_message.dart'; // Para trabalhar com os modelos de tarefas.
+import 'package:chat/core/models/task.dart'; // Para trabalhar com os modelos de tarefas.
 
 class TaskEditScreen extends StatefulWidget {
   final Task task;

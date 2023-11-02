@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Color(0xFF121212), // Defina o fundo como um tom escuro (quase preto)
           primaryColor: Colors.transparent,
           textTheme: Theme.of(context).textTheme.apply(
-            bodyColor: Colors.white, // Isso fará com que a cor do texto seja branca.
-            displayColor: Colors.white, // Isso fará com que a cor do texto seja branca.
+            bodyColor: Colors.black, // Isso fará com que a cor do texto seja branca.
+            displayColor: Colors.black, // Isso fará com que a cor do texto seja branca.
           ), // Defina a cor primária como transparente
           appBarTheme: AppBarTheme(
             color: Colors.transparent, // Defina a cor da barra de aplicativos como transparente

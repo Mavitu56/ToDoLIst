@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:chat/core/services/chat/chat_service.dart'; // Importe o serviço de tarefas.
+import 'package:chat/core/services/chat/task_service.dart'; // Importe o serviço de tarefas.
 import 'package:chat/core/services/auth/auth_service.dart';
 
 class NewTask extends StatefulWidget {
@@ -38,6 +38,7 @@ class _NewTaskState extends State<NewTask> {
           child: TextField(
             controller: _titleController,
             onChanged: (title) => setState(() => _title = title),
+    style: TextStyle(color: Colors.white), 
             decoration: const InputDecoration(
               labelText: 'Título da Tarefa',
               labelStyle: TextStyle(
@@ -54,6 +55,7 @@ class _NewTaskState extends State<NewTask> {
           child: TextField(
             controller: _descriptionController,
             onChanged: (description) => setState(() => _description = description),
+    style: TextStyle(color: Colors.white), 
              decoration: const InputDecoration(
               labelText: 'Descrição da Tarefa',
               labelStyle: TextStyle(
