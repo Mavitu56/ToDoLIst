@@ -33,4 +33,34 @@ class TaskMockService implements TaskService {
     _controller?.add(_tasks.reversed.toList());
     return newTask;
   }
+
+   @override
+Future<void> edit(String taskId, String title, String description, DateTime? dueDate) async {
+  final task = _tasks.firstWhere(
+    (t) => t.id == taskId,
+    orElse: () => Task(
+      id: '',
+      userName: '',
+      title: '',
+      userImageUrl: '',
+      description: '',
+      dueDate: null,
+      userId: '',
+      isCompleted: false,
+    ),
+  );
+
+  if (task.id.isNotEmpty) {
+    task.title = title;
+    task.description = description;
+    task.dueDate = dueDate;
+    _controller?.add(_tasks.reversed.toList()); // Adicione esta linha
+  }
+}
+
+@override
+Future<void> delete(String taskId) async {
+  _tasks.removeWhere((t) => t.id == taskId);
+  _controller?.add(_tasks.reversed.toList()); // Adicione esta linha
+}
 }

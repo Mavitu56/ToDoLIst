@@ -1,17 +1,21 @@
 import 'package:chat/components/message_bubble.dart';
 import 'package:chat/core/models/chat_message.dart';
 import 'package:chat/core/services/auth/auth_service.dart';
-import 'package:chat/core/services/chat/chat_service.dart';import 'package:flutter/material.dart';
+import 'package:chat/core/services/chat/chat_service.dart';
+import 'package:flutter/material.dart';
 
 class TaskList extends StatelessWidget {
-  const TaskList({Key? key});
+  final TaskService taskService = TaskService();
+  final List<Key> taskTileKeys = []; // Crie uma lista de chaves.
+
+  TaskList({Key? key});
 
   @override
   Widget build(BuildContext context) {
     final currentUser = AuthService().currentUser;
 
     return StreamBuilder<List<Task>>(
-      stream: TaskService().tasksStream(), // Use o serviço de tarefas aqui.
+      stream: taskService.tasksStream(),
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -23,11 +27,18 @@ class TaskList extends StatelessWidget {
           return ListView.builder(
             reverse: true,
             itemCount: tasks.length,
-            itemBuilder: (ctx, i) => TaskTile( // Renomeei de MessageBubble para TaskTile.
-              key: ValueKey(tasks[i].id),
-              task: tasks[i],
-              belongsToCurrentUser: currentUser?.id == tasks[i].userId,
-            ),
+            itemBuilder: (ctx, i) {
+              // Use uma chave única para cada TaskTile.
+              if (i >= taskTileKeys.length) {
+                taskTileKeys.add(ValueKey(tasks[i].id));
+              }
+              return TaskTile(
+                key: taskTileKeys[i],
+                task: tasks[i],
+                belongsToCurrentUser: currentUser?.id == tasks[i].userId,
+                taskManager: taskService,
+              );
+            },
           );
         }
       },

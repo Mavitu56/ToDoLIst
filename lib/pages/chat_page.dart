@@ -77,7 +77,7 @@ class TaskPage extends StatelessWidget { // Renomeie a classe para TaskPage.
       ),
       body: SafeArea(
         child: Column(
-          children: const [
+          children: [
             Expanded(child: TaskList()), // Substitua o componente Messages por TaskList.
             NewTask(), // Substitua o componente NewMessage por NewTask.
           ],
