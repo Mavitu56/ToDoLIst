@@ -3,33 +3,33 @@ import 'dart:math';
 import 'package:chat/core/models/chat_message.dart';
 import 'package:chat/core/models/chat_user.dart';
 import 'package:chat/core/services/chat/chat_service.dart';
+class TaskMockService implements TaskService {
+  static final List<Task> _tasks = [];
 
-class ChatMockService implements ChatService {
-  static final List<ChatMessage> _msgs = [];
-
-  static MultiStreamController<List<ChatMessage>>? _controller;
-  static final _msgsStream = Stream<List<ChatMessage>>.multi((controller) {
+  static MultiStreamController<List<Task>>? _controller;
+  static final _tasksStream = Stream<List<Task>>.multi((controller) {
     _controller = controller;
-    controller.add(_msgs);
+    controller.add(_tasks);
   });
 
   @override
-  Stream<List<ChatMessage>> messagesStream() {
-    return _msgsStream;
+  Stream<List<Task>> tasksStream() {
+    return _tasksStream;
   }
 
   @override
-  Future<ChatMessage> save(String text, ChatUser user) async {
-    final newMessage = ChatMessage(
+  Future<Task> save(String description, ChatUser user) async {
+    final newTask = Task(
       id: Random().nextDouble().toString(),
-      text: text,
-      createdAt: DateTime.now(),
-      userId: user.id,
       userName: user.name,
       userImageUrl: user.imageUrl,
+      description: description,
+      createdAt: DateTime.now(),
+      userId: user.id,
+      isCompleted: false, // Defina a tarefa como não concluída por padrão.
     );
-    _msgs.add(newMessage);
-    _controller?.add(_msgs.reversed.toList());
-    return newMessage;
+    _tasks.add(newTask);
+    _controller?.add(_tasks.reversed.toList());
+    return newTask;
   }
 }

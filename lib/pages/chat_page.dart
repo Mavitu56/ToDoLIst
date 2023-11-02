@@ -7,15 +7,14 @@ import 'package:chat/core/services/notification/chat_notification_service.dart';
 import 'package:chat/pages/notification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-class ChatPage extends StatelessWidget {
-  const ChatPage({super.key});
+class TaskPage extends StatelessWidget { // Renomeie a classe para TaskPage.
+  const TaskPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cod3r Chat'),
+        title: const Text('Task App'),
         actions: [
           DropdownButtonHideUnderline(
             child: DropdownButton(
@@ -23,11 +22,11 @@ class ChatPage extends StatelessWidget {
                 Icons.more_vert,
                 color: Theme.of(context).primaryIconTheme.color,
               ),
-              items: [
+              items: const [
                 DropdownMenuItem(
                   value: 'logout',
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(
                         Icons.exit_to_app,
                         color: Colors.black87,
@@ -45,6 +44,7 @@ class ChatPage extends StatelessWidget {
               },
             ),
           ),
+          
           Stack(
             children: [
               IconButton(
@@ -78,18 +78,18 @@ class ChatPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: const [
-            Expanded(child: Messages()),
-            NewMessage(),
+            Expanded(child: TaskList()), // Substitua o componente Messages por TaskList.
+            NewTask(), // Substitua o componente NewMessage por NewTask.
           ],
         ),
       ),
       // floatingActionButton: FloatingActionButton(
       //   child: const Icon(Icons.add),
       //   onPressed: () {
-      //     Provider.of<ChatNotificationService>(
+      //     Provider.of<TaskNotificationService>(
       //       context,
       //       listen: false,
-      //     ).add(ChatNotification(
+      //     ).add(TaskNotification(
       //       title: 'Mais uma notificação!',
       //       body: Random().nextDouble().toString(),
       //     ));

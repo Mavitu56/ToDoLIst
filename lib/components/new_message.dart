@@ -1,24 +1,23 @@
-import 'package:chat/core/services/auth/auth_service.dart';
-import 'package:chat/core/services/chat/chat_service.dart';
 import 'package:flutter/material.dart';
-
-class NewMessage extends StatefulWidget {
-  const NewMessage({super.key});
+import 'package:chat/core/services/chat/chat_service.dart'; // Importe o serviço de tarefas.
+import 'package:chat/core/services/auth/auth_service.dart';
+class NewTask extends StatefulWidget {
+  const NewTask({Key? key});
 
   @override
-  State<NewMessage> createState() => _NewMessageState();
+  _NewTaskState createState() => _NewTaskState();
 }
 
-class _NewMessageState extends State<NewMessage> {
-  String _message = '';
-  final _messageController = TextEditingController();
+class _NewTaskState extends State<NewTask> {
+  String _description = '';
+  final _descriptionController = TextEditingController();
 
-  Future<void> _sendMessage() async {
+  Future<void> _addTask() async {
     final user = AuthService().currentUser;
 
     if (user != null) {
-      await ChatService().save(_message, user);
-      _messageController.clear();
+      await TaskService().save(_description, user); // Use o serviço de tarefas para salvar a nova tarefa.
+      _descriptionController.clear();
     }
   }
 
@@ -28,21 +27,21 @@ class _NewMessageState extends State<NewMessage> {
       children: [
         Expanded(
           child: TextField(
-            controller: _messageController,
-            onChanged: (msg) => setState(() => _message = msg),
+            controller: _descriptionController,
+            onChanged: (description) => setState(() => _description = description),
             decoration: const InputDecoration(
-              labelText: 'Enviar mensagem...',
+              labelText: 'Adicionar Tarefa...',
             ),
             onSubmitted: (_) {
-              if (_message.trim().isNotEmpty) {
-                _sendMessage();
+              if (_description.trim().isNotEmpty) {
+                _addTask();
               }
             },
           ),
         ),
         IconButton(
-          icon: const Icon(Icons.send),
-          onPressed: _message.trim().isEmpty ? null : _sendMessage,
+          icon: const Icon(Icons.add),
+          onPressed: _description.trim().isEmpty ? null : _addTask,
         ),
       ],
     );
