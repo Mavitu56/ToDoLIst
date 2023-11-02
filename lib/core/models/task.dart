@@ -10,6 +10,33 @@ class Task {
   final String userName;
   String userImageUrl;
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'userName': userName,
+      'title': title,
+      'userImageUrl': userImageUrl,
+      'description': description,
+      'dueDate': dueDate?.toIso8601String(),
+      'userId': userId,
+      'isCompleted': isCompleted,
+    };
+  }
+
+  // Cria um objeto Task a partir de um Map
+  static Task fromMap(Map<String, dynamic> map) {
+    return Task(
+      id: map['id'],
+      userName: map['userName'],
+      title: map['title'],
+      userImageUrl: map['userImageUrl'],
+      description: map['description'],
+      dueDate: DateTime.parse(map['dueDate']),
+      userId: map['userId'],
+      isCompleted: map['isCompleted'],
+    );
+  }
+
    Task({
     required this.id,
     required this.description,

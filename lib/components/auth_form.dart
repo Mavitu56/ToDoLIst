@@ -94,7 +94,7 @@ class _AuthFormState extends State<AuthForm> {
                 validator: (localPassword) {
                   final password = localPassword ?? '';
                   if (password.length < 6) {
-                    return 'Nome deve ter no mínimo 6 caracteres.';
+                    return 'Senha deve ter no mínimo 6 caracteres.';
                   }
                   return null;
                 },

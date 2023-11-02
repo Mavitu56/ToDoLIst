@@ -5,7 +5,6 @@ import 'package:chat/core/services/auth/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart'; 
 
 class AuthFirebaseService implements AuthService {
   static ChatUser? _currentUser;
@@ -30,34 +29,25 @@ class AuthFirebaseService implements AuthService {
   @override
   Future<void> signup(
       String name, String email, String password, File? image) async {
-    final signup = await Firebase.initializeApp(
-      name: 'userSignup',
-      options: Firebase.app().options,
-    ); 
-    final auth = FirebaseAuth.instanceFor(app: signup);
+    final auth = FirebaseAuth.instance;
     UserCredential credential = await auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
 
     if (credential.user != null) {
-    // 1. Upload da foto do usuário
-    final imageName = '${credential.user!.uid}.jpg';
-    final imageUrl = await _uploadUserImage(image, imageName);
+      // 1. Upload da foto do usuário
+      final imageName = '${credential.user!.uid}.jpg';
+      final imageUrl = await _uploadUserImage(image, imageName);
 
-    // 2. atualizar os atributos do usuário
-    await credential.user?.updateDisplayName(name);
-    await credential.user?.updatePhotoURL(imageUrl);
- 
-    // 2.5 fazer o login do usuário
-    await login(email, password);
+      // 2. atualizar os atributos do usuário
+      await credential.user?.updateDisplayName(name);
+      await credential.user?.updatePhotoURL(imageUrl);
 
-     _currentUser = _toChatUser(credential.user!, imageUrl);
- await _saveChatUser(_currentUser!);
- }
- 
- await signup.delete();
- }
+      // 3. salvar usuário no banco de dados (opcional)
+      await _saveChatUser(_toChatUser(credential.user!, imageUrl));
+    }
+  }
 
   @override
   Future<void> login(String email, String password) async {
